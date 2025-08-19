@@ -17,6 +17,7 @@ def split_string_by_lengths(text, lengths):
               If the total length of 'lengths' exceeds the 'text' length,
               the last chunk might be shorter than specified.
     """
+    
     result = []
     current_index = 0
     for length in lengths:
