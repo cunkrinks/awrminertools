@@ -35,6 +35,7 @@ linebag=0
 start="no"
 arr_len = []
 dbinfo = []
+kolom = []
 with open("awr-hist-1738933432-NAKULA-3366-3564.out") as f:
   for x in f:
     
@@ -75,8 +76,30 @@ with open("awr-hist-1738933432-NAKULA-3366-3564.out") as f:
                 if len(body) == len(head):
                   data = np.vstack((data,body))
                 #print(data)
+                try:
+                   value = int(body[1])
+                   body[1] = value
+                except ValueError:
+                   body[1] = body[1]
+                
+                
+                
                 dbinfo.append(body[1])
+                kolom.append(body[0])
                 linebag=linebag+1
+dbinfo.append("awr-hist-1738933432-NAKULA-3366-3564.out")
+converted_data = np.zeros_like(data, dtype=object) # Use object dtype to allow mixed types
 
+# Iterate through the array and convert numeric strings to integers
+for i in range(data.shape[0]):
+    for j in range(data.shape[1]):
+        try:
+            # Attempt to convert the element to an integer
+            converted_data[i, j] = int(data[i, j])
+        except ValueError:
+            # If conversion fails (e.g., it's not a valid number), keep the original value
+            converted_data[i, j] = data[i, j].strip()
 print(data)
+print(converted_data)
+print(kolom)
 print(dbinfo)
